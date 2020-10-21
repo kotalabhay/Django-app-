@@ -1,0 +1,434 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+
+<style>
+    body{
+        margin-top: 40px;
+    }
+</style>
+
+<body>
+
+
+<div class="d-flex justify-content-center">
+
+<form id="form" method="post" action="{% url 'center_master_insert' %}">
+
+<!---------------------------------------------------------------- Basic Detils-- -->
+
+  <div class="form-group row">
+    <label for="project_id" class="col-4 col-form-label">Project ID</label> 
+    <div class="col-8">
+      <input id="project_id" name="project_id" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="pia_name" class="col-4 col-form-label">PIA Name</label> 
+    <div class="col-8">
+      <input id="pia_name" name="pia_name" type="text" required="required" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Name_District" class="col-4 col-form-label">District Name</label> 
+    <div class="col-8">
+      <input id="Name_District" name="Name_District" type="text" class="form-control" required="required">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Assembly_Constituency" class="col-4 col-form-label">Assembly Constituency</label> 
+    <div class="col-8">
+      <input id="Assembly_Constituency" name="Assembly_Constituency" type="text" class="form-control" required="required">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Parliamentary_Constituency" class="col-4 col-form-label">Parliamentary Constituency</label> 
+    <div class="col-8">
+      <input id="Parliamentary_Constituency" name="Parliamentary_Constituency" type="text" class="form-control" required="required">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Name_of_training_Center" class="col-4 col-form-label">Name of training Center</label> 
+    <div class="col-8">
+      <input id="Name_of_training_Center" name="Name_of_training_Center" type="text" class="form-control" required="required">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Training_Centode_Alias" class="col-4 col-form-label">Training Centode Alias</label> 
+    <div class="col-8">
+      <input id="Training_Centode_Alias" name="Training_Centode_Alias" type="text" class="form-control" required="required">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Address1_Training_Center" class="col-4 col-form-label">Address1  Training Center</label> 
+    <div class="col-8">
+      <input id="Address1_Training_Center" name="Address1_Training_Center" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Address2_Training_Center" class="col-4 col-form-label">Address2 Training Center</label> 
+    <div class="col-8">
+      <input id="Address2_Training_Center" name="Address2_Training_Center" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Mobile_No_TC_Manager" class="col-4 col-form-label">Mobile No TC Manager</label> 
+    <div class="col-8">
+      <input id="Mobile_No_TC_Manager" name="Mobile_No_TC_Manager" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Email_id_TC_Manager" class="col-4 col-form-label">Email id TC Manager</label> 
+    <div class="col-8">
+      <input id="Email_id_TC_Manager" name="Email_id_TC_Manager" type="email" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Distance_From_Bus_Stand" class="col-4 col-form-label">Distance From Bus Stand(KM)</label> 
+    <div class="col-8">
+      <input id="Distance_From_Bus_Stand" name="Distance_From_Bus_Stand" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Distance_From_Auto_Stand" class="col-4 col-form-label">Distance From Auto Stand(KM)</label> 
+    <div class="col-8">
+      <input id="Distance_From_Auto_Stand" name="Distance_From_Auto_Stand" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Distance_From_Railway_Station" class="col-4 col-form-label">Distance From Railway Station(KM)</label> 
+    <div class="col-8">
+      <input id="Distance_From_Railway_Station" name="Distance_From_Railway_Station" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Distance_From_Airport" class="col-4 col-form-label">Distance From Airport(KM)</label> 
+    <div class="col-8">
+      <input id="Distance_From_Airport" name="Distance_From_Airport" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Latitude" class="col-4 col-form-label">Latitude</label> 
+    <div class="col-8">
+      <input id="Latitude" name="Latitude" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Longitude" class="col-4 col-form-label">Longitude</label> 
+    <div class="col-8">
+      <input id="Longitude" name="Longitude" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Photograph_Building_Sign" class="col-4 col-form-label">Photograph Building Sign</label> 
+    <div class="col-8">
+      <input type="file" id="Photograph_Building_Sign" accept="image/*" name="Photograph_Building_Sign"  type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+  
+
+    <label for="Photograph_adjoining_building" class="col-4 col-form-label">Photograph adjoining building</label> 
+    <div class="col-8">
+      <input type="file" id="Photograph_adjoining_building" accept="image/*" name="Photograph_adjoining_building"   class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Ownership_of_the_Building" class="col-4 col-form-label">Ownership of the Building</label> 
+    <div class="col-8">
+      <input id="Ownership_of_the_Building" name="Ownership_of_the_Building"  class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="Owner_Name_of_the_Building" class="col-4 col-form-label">Owner Name of the Building</label> 
+    <div class="col-8">
+      <input id="Owner_Name_of_the_Building" name="Owner_Name_of_the_Building" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="Area_of_the_Building" class="col-4 col-form-label">Area of the Building(sq ft)</label> 
+    <div class="col-8">
+      <input id="Area_of_the_Building" name="Area_of_the_Building" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="RCC" class="col-4 col-form-label">RCC</label> 
+    <div class="col-8">
+      <select id="RCC" name="RCC" class="custom-select" required="required">
+        <option value="RCC">RCC</option>
+        <option value="NOT RCC">NOT RCC</option>
+      </select>
+    </div>
+  </div> 
+
+  <div class="form-group row">
+    <label for="Circulation Area" class="col-4 col-form-label">Circulation Area(sq ft)</label> 
+    <div class="col-8">
+      <input id="Circulation_Area" name="Circulation_Area" type="text" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="Open Space Area" class="col-4 col-form-label">Open Space Area(sq ft)</label> 
+    <div class="col-8">
+      <input id="Open_space_Area" name="Open_space_Area" type="text" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="Exlcusive Bicycle Parking" class="col-4 col-form-label">Exlcusive Bicycle Parking(sq ft)</label> 
+    <div class="col-8">
+      <input id="Exlcusive_Bicycle_Parking" name="Exlcusive_Bicycle_Parking" type="text" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="Open Space Security" class="col-4 col-form-label">Open Space Security(sq ft)</label> 
+    <div class="col-8">
+      <input id="Open_Space_Security" name="Open_Space_Security" type="text" class="form-control">
+    </div>
+  </div>
+
+<!-- ---------------------------------------------------------Room-------------------------------------------------- -->
+  <label>Enter Number of Rooms</label>
+  <input type="number" name="Rooms_Available_Number" id="table-row-num" value="0" oninput="myFunction()">
+
+ 
+  <div id= "table-gen">
+      <table id="Room" cellpadding="1" cellspacing="1" border="1">
+        <thead>
+        <tr>
+            <th>Sr No</th>
+            <th>Length(Ft.)</th>
+            <th>Width(Ft.)</th>
+            <th>Area(sq Ft.)</th>
+            <th>Roof Height(Ft.)</th>
+            <th>Windows areas(sq Ft.)</th>
+        </tr>
+        </thead>
+      </table>
+
+<!-- ---------------------------------------------------------Toilet-------------------------------------------------- -->
+<label style="margin-top: 15px;">Enter Number of Toilets</label>
+<input type="number" name="Number_Of_Toilets" id="table-row-num_toilet" value="0" oninput="Toilet()">
+
+<div id= "table-gen">
+    <table id="Toilet" cellpadding="1" cellspacing="1" border="1">
+      <thead>
+      <tr>
+          <th>Sr No</th>
+          <th>Lights (in No.)</th>
+          <th>Lights (in No.) upload proof</th>
+          <th>Type of Flooring</th>
+          <th>Type of Flooring upload proof</th>
+          <th>Connection to running water</th>
+      </tr>
+      </thead>
+    </table>
+<!---------------------------------------------- Corridor ------------------------------------------------------------- -->
+
+
+<label style="margin-top:14px">Enter Number Of Corridor</label>
+<input type="number" name="Number_Of_Corridor"  id="table-row-num_corridor" value="0" oninput="corridor()">
+
+<div class="d-flex justify-content-center">
+  <div class="row">
+      <div class="col-lg-12">
+            <div class="alert alert-success" id="upt_success" style="display:none">
+
+            </div>
+             <div class="alert alert-danger" id="upt_error" style="display:none">
+
+            </div>
+      </div>
+  </div>
+</div>
+
+<div id= "table-gen">
+    <table id="Corridor" cellpadding="1" cellspacing="1" border="1">
+      <thead>
+      <tr>
+          <th>Sr No</th>
+          <th>Length(Ft.)</th>
+          <th>Width(Ft.)</th>
+          <th>Area(sq Ft.)</th>
+          <th>Roof Height(Ft.)</th>
+          <th>Windows areas(sq Ft.)</th>
+          <th>Lights No</th>
+          <th>Fan No</th>
+      </tr>
+      </thead>
+    </table>
+
+    <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+                <div class="alert alert-success" id="upt_success" style="display:none">
+
+                </div>
+                 <div class="alert alert-danger" id="upt_error" style="display:none">
+
+                </div>
+          </div>
+      </div>
+    </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <button name="submit" type="submit" id="insert_btn_1" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+</form>
+
+
+</div>
+</body>
+<script>
+/////////////////////////////////////Room//////////////////////////////////////////
+function myFunction() {
+    var rows =  document.getElementById("table-row-num").value;
+    var html='<thead>'+
+      '<tr>'  +
+          '<th>Sr No</th>' +
+            '<th>Length(Ft.)</th>'+
+          '<th>Width(Ft.)</th>'+
+            '<th>Area(sq Ft.)</th>'+
+         '<th>Roof Height(Ft.)</th>'+
+             '<th>Windows areas(sq Ft.)</th>'+
+
+        '</thead>';
+        for (var i = 0; i < rows; i++) {
+          html += "<tbody>"+"<tr>" +
+            "<td>" + (i + 1) + "</td>" +
+            "<td><input type='number' name='length_room' id='ins_length_room[ "+i +"]' class='form-control input_data' ></td>" +
+            "<td>  <input type='number' name='width_room' class='form-control input_data' id='ins_width_room["+i +"]'></td>" +
+            "<td><input type='number' name='area_room' id='ins_area_room["+ i +"]' class='form-control input_data' ></td>" +
+            "<td><input type='number' name='roof_height_room' id='ins_roof_height_room[ "+i +"]' class='form-control input_data' ></td>" +
+            "<td>  <input type='number' name='windows_area_room' class='form-control input_data' id='ins_windows_area_room["+i +"]'></td>" +  
+            "</tr>"
+            +"</tbody>";
+        }
+  
+        $('#Room').html(html);
+  }
+
+
+/////Corridor///////
+
+function corridor() {
+    var rows =  document.getElementById("table-row-num_corridor").value;
+    var html='<thead>'+
+      '<tr>'  +
+          '<th>Sr No</th>' +
+            '<th>Length(Ft.)</th>'+
+          '<th>Width(Ft.)</th>'+
+            '<th>Area(sq Ft.)</th>'+
+         '<th>Roof Height(Ft.)</th>'+
+             '<th>Windows areas(sq Ft.)</th>'+
+             '<th>Lights No</th>'+
+             '<th>Fan No</th>'+
+
+        '</thead>';
+        for (var i = 0; i < rows; i++) {
+          html += "<tbody>"+"<tr>" +
+            "<td>" + (i + 1) + "</td>" +
+            "<td><input type='number' name='length_corridor' id='ins_length_corridor[ "+i +"]' class='form-control input_data' ></td>" +
+            "<td>  <input type='number' name='width_corridor' class='form-control input_data' id='ins_width_corridor["+i +"]'></td>" +
+            "<td><input type='number' name='area_corridor' id='ins_area_corridor["+ i +"]' class='form-control input_data' ></td>" +
+            "<td><input type='number' name='roof_height_corridor' id='ins_roof_height_corridor[ "+i +"]' class='form-control input_data' ></td>" +
+            "<td>  <input type='number' name='windows_area_corridor' class='form-control input_data' id='ins_windows_area_corridor["+i +"]'></td>" +  
+            "<td>  <input type='number' name='lights_no_corridor' class='form-control input_data' id='ins_lights_no_corridor["+i +"]'></td>" +  
+            "<td>  <input type='number' name='fan no_corrdior' class='form-control input_data' id='ins_fan_no_corridor["+i +"]'></td>" +  
+
+            "</tr>"
+            +"</tbody>";
+        }
+  
+        $('#Corridor').html(html);
+  }
+
+// ///////Toilet/////////////////////////////////////////////
+
+
+
+function Toilet() {
+    var rows =  document.getElementById("table-row-num_toilet").value;
+    var html='<thead>'+
+      '<tr>'  +
+          '<th>Sr No</th>' +
+            '<th>Lights (in No.)</th>'+
+          '<th>Lights (in No.) upload proof</th>'+
+            '<th>Type of Flooring</th>'+
+         '<th>Roof Height(Ft.)</th>'+
+             '<th>Type of Flooring upload proof</th>'+
+             '<th>Connection to running water</th>'+
+        '</thead>';
+        for (var i = 0; i < rows; i++) {
+          html += "<tbody>"+"<tr>" +
+            "<td>" + (i + 1) + "</td>" +
+            "<td><input type='number' name='lights_no' id='ins_lights_no[ "+i +"]' class='form-control input_data' ></td>" +
+            "<td>  <input type='file' name='light_image' accept='image/*' class='form-control input_data' id='ins_light_image["+i +"]'></td>" +
+            "<td>  <select  name='type_floor' id='ins_type_floor[ "+i +"]' class='custom-select' required='required'>"+"<option value='Tile'>Tile</option>"
+            +"<option value='Marble'>Marble</option>"+"<option value='Cemented'>Cemented</option>"+"</select>"+"</td>"+
+            "<td><input type='number' name='roof_height' id='ins_roof_height[ "+i +"]' class='form-control input_data' ></td>" +
+            "<td> <input type='file' id='ins_floor_image[ "+i +"]' accept='image/*' name='floor_image'   class='form-control'>"+
+            "<td>  <select  name='connection_water' id='ins_connection_water[ "+i +"]' class='custom-select' required='required'>"+"<option value='Yes'>Yes</option>"
+            +"<option value='No'>No</option>"+"</select>"+"</td>"+
+            "</tr>"
+            +"</tbody>";
+        }
+  
+        $('#Toilet').html(html);
+  }
+
+////////////////////////////////AJAX///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+$("#insert_btn_1").click(function(){
+  var formData_1 = new FormData($("#form")[0]);
+$.ajax({
+   url: "{% url 'center_master_insert' %}",
+   type: 'POST',
+   data: formData_1,
+   async: false,
+   cache: false,
+   contentType: false,
+   enctype: 'multipart/form-data',
+   processData: false,
+   success: function (response) {
+     alert("Successfully Data Inserted");
+   }
+})
+        .done(function(response){
+            if(response['error']==false){
+                $("#upt_error").hide();
+                $("#upt_success").text(response['errorMessage']);
+                $("#upt_success").show();
+
+            }
+            else{
+                $("#upt_success").hide();
+                $("#upt_error").text(response['errorMessage']);
+                $("#upt_error").show();
+            }
+        })
+        .fail(function(){
+             $("#upt_success").hide();
+             $("#upt_error").text("Something Went Wrong!");
+             $("#upt_error").show();
+        });
+return false;
+});
+
+
+</script>
+
+
+
+{% endblock content %}

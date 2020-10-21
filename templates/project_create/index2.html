@@ -1,0 +1,506 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  
+	function updateElementIndex(el, prefix, ndx) {
+		var id_regex = new RegExp('(' + prefix + '-\\d+)');
+		var replacement = prefix + '-' + ndx;
+		if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+		if (el.id) el.id = el.id.replace(id_regex, replacement);
+		if (el.name) el.name = el.name.replace(id_regex, replacement);
+	}
+	function cloneMore(selector, prefix) {
+		var newElement = $(selector).clone(true);
+		var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+		newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+			var name = $(this).attr('name')
+			if(name) {
+				name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+				var id = 'id_' + name;
+				$(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+			}
+		});
+		newElement.find('label').each(function() {
+			var forValue = $(this).attr('for');
+			if (forValue) {
+			  forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+			  $(this).attr({'for': forValue});
+			}
+		});
+		total++;
+		$('#id_' + prefix + '-TOTAL_FORMS').val(total);
+		$(selector).after(newElement);
+		var conditionRow = $('.form-row:not(:last)');
+		conditionRow.find('.btn.add-form-row')
+		.removeClass('btn-success').addClass('btn-danger')
+		.removeClass('add-form-row').addClass('remove-form-row')
+		.html('-');
+		return false;
+	}
+	function deleteForm(prefix, btn) {
+		var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+		if (total > 1){
+			btn.closest('.form-row').remove();
+			var forms = $('.form-row');
+			$('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+			for (var i=0, formCount=forms.length; i<formCount; i++) {
+				$(forms.get(i)).find(':input').each(function() {
+					updateElementIndex(this, prefix, i);
+				});
+			}
+		}
+		return false;
+	}
+	$(document).on('click', '.add-form-row', function(e){
+		e.preventDefault();
+		cloneMore('.form-row:last', 'form');
+		return false;
+	});
+	$(document).on('click', '.remove-form-row', function(e){
+		e.preventDefault();
+		deleteForm('form', $(this));
+		return false;
+	});
+	
+	</script>
+<head>
+  <style>
+    .required:after {
+      content:" *";
+      color: red;
+    }
+  </style>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+	<link href="{% static 'Register/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'Register/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+  
+
+
+</head>
+
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+	
+  
+  
+    <form method="POST">
+		{% csrf_token %}
+
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+
+     <div class="form-group ">
+      <label class="control-label requiredField" for="project_name">
+       Project Name
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.project_name|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="pia_name">
+       PIA Name
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.pia_name|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="sanction_order_number">
+       Sanction Order number
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.sanction_order_number|as_crispy_field}}
+	 </div>
+	 <div class="form-group">
+		<label>Enter sanction Date</label>
+		<div class="row">
+			<div class="input-group">
+				{{form.sanction_order_date |as_crispy_field}}
+				<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+			</div>
+		</div>
+   <!----  <div class="form-group ">
+      <label class="control-label requiredField" for="sanction_order_date">
+       Sanction Order Date
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="sanction_order_date" name="sanction_order_date" type="text"/>
+     </div> -->
+     <div class="form-group ">
+      <label class="control-label requiredField" for="proposal_code">
+       Proposal code
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.proposal_code|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="project_duration">
+       Project Duration
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.project_duration|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="state">
+       State
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.state|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label ">
+       Project Owner Type
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.Company_owner_type|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="partner_name">
+       Partner Name
+      </label>
+      {{form.partner_name|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="training_target">
+       Training Target
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.training_target|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="project_cost">
+       Project Cost
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.project_cost|as_crispy_field}}
+	 </div>
+	 <div class="form-group">
+		<label class="required">Date Pac Approval</label>
+		<div class="row">
+			<div class="input-group">
+				{{form.date_pac_approval|as_crispy_field}}
+				<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+			</div>
+    </div>
+    </div>
+		<div class="form-group">
+			<label class="required">Date MOU</label>
+			<div class="row">
+				<div class="input-group">
+					{{form.date_mou|as_crispy_field}}
+					<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+				</div>
+      </div>
+      </div>
+
+			<div class="form-group">
+				<label class="required"> Date Commencement</label>
+				<div class="row">
+					<div class="input-group">
+						{{form.date_commencement|as_crispy_field}}
+						<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+					</div>
+        </div>
+        </div>
+
+				<div class="form-group">
+					<label class="required">  Last Training Completition</label>
+					<div class="row">
+						<div class="input-group">
+							{{form.date_last_training_completition|as_crispy_field}}
+							<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+						</div>
+          </div>
+          </div>
+
+					<div class="form-group">
+						<label class="required">  Last placement Completition</label>
+						<div class="row">
+							<div class="input-group">
+								{{form.date_last_placement_completion|as_crispy_field}}
+								<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+							</div>
+            </div>
+            </div>
+
+						<div class="form-group">
+							<label class="required">  Date Project End</label>
+							<div class="row">
+								<div class="input-group">
+									{{form.date_project_end|as_crispy_field}}
+									<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+								</div>
+              </div>
+						</div>
+	 <!--<div 
+		class="form-group ">
+      <label class="control-label requiredField" for="date_pac_approval">
+       Date Pac Approval
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date_pac_approval" name="date_pac_approval" placeholder="MM/DD/YYYY" type="text"/>
+     </div>-->
+    <!---- <div class="form-group ">
+      <label class="control-label requiredField" for="date2">
+       Date PCO
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date2" name="date2" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="date_mou">
+       Date MOU
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date_mou" name="date_mou" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="date_commencement">
+       Date Commencement
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date_commencement" name="date_commencement" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="date_last_training_completition">
+       Last Training Completition
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date_last_training_completition" name="date_last_training_completition" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="date_last_placement_completion">
+       Last placement Completition
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date_last_placement_completion" name="date_last_placement_completion" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="date_project_end">
+       Date Project End
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="date_project_end" name="date_project_end" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField">
+       Is PER Approved
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class=" ">-->
+       <div class="checkbox">
+         <label>Per Approved?</label>
+		   {{form.is_PER_approved|as_crispy_field}}
+  
+       </div>
+       <div class="form-group">
+        <label class="required">  PER Date</label>
+        <div class="row">
+          <div class="input-group">
+            {{form.PER_date|as_crispy_field}}
+            <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+          </div>
+        </div>
+        </div>
+
+
+
+        <div class="checkbox">
+          <label>PPWS Approved?</label>
+        {{form.is_PPWS_approved|as_crispy_field}}
+   
+        </div>
+        <div class="form-group">
+         <label class="required">  PPWS Date</label>
+         <div class="row">
+           <div class="input-group">
+             {{form.PPWS_date|as_crispy_field}}
+             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+           </div>
+         </div>
+         </div>
+    <!----<div class="form-group ">
+      <label class="control-label " for="PER_date">
+       PER Date
+      </label>
+      <input class="form-control" id="PER_date" name="PER_date" placeholder="MM/DD/YYYY" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField">
+       PPWS Approved??
+       <span class="asteriskField">
+        *
+       </span>
+      </label> -->
+    <!----  <div class=" ">
+       <div class="checkbox">
+        <label class="checkbox">
+         <input name="is_PPWS_approved" type="checkbox" value="PPWS Approved"/>
+         PPWS Approved
+        </label>
+       </div>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="PPWS_date">
+       PPWS Date
+      </label>
+      <input class="form-control" id="PPWS_date" name="PPWS_date" placeholder="MM/DD/YYYY" type="text"/>
+     </div>-->
+     <div class="form-group ">
+      <label class="control-label requiredField" for="alloted_trade">
+       Alloted Trade
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+     
+      {{form.alloted_trade|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="alloted_trade_target">
+       Alloted Trade Target
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+     {{form.alloted_trade_target|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="mobilization_district">
+       Mobilization District
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      {{form.mobilization_district|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="mobilization_target">
+       Mobilization Target
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+    {{form.mobilization_target|as_crispy_field}}
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="tlm_approved_status">
+       TLM Status
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+    {{form.tlm_approved_status|as_crispy_field}}
+      </select>
+     </div>
+     <div class="form-group">
+      {{ formset.management_form }}
+      {% for forms in formset %}
+      <div class="row form-row spacer">
+        <div class="col-2">
+          <label></label>
+        </div>
+        <div class="col-4">
+          <div class="input-group">
+            {{forms.trade_target}} 
+            <div class="input-group-append">
+              <button class="btn btn-success add-form-row">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="input-group">
+            {{forms.tc_district}} 
+            <div class="input-group-append">
+              <button class="btn btn-success add-form-row">+</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+      <div class="row spacer">
+        <div class="col-4 offset-2">
+          <button type="submit" class="btn btn-block btn-primary">Submit</button>
+        </div>
+      </div>
+	</form>
+	
+   </div>
+  </div>
+ </div>
+</div>
+     <!-- Jquery JS-->
+	 <!-- Vendor JS-->
+
+ 
+	 <!-- Main JS-->
+	 <script src="{% static 'Register/js/global.js' %}"></script>
+	 {% endblock content %}
+
+
+<!-- end document-->
